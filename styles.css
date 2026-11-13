@@ -98,6 +98,8 @@ img{max-width:100%;display:block;}
 .compare-table th{background:#f8f9fc;font-weight:800;color:var(--ink-soft);font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;}
 .compare-table td.us{background:var(--brand-soft);font-weight:700;color:var(--brand-dark);}
 .compare-table tr:last-child td{border-bottom:none;}
+.table-scroll{overflow-x:auto;border-radius:var(--radius);}
+@media (max-width:560px){.compare-table th,.compare-table td{padding:10px 10px;}}
 .x-mark{color:#c9436b;font-weight:800;}
 .ok-mark{color:var(--brand);font-weight:800;}
 
