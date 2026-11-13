@@ -1,4 +1,4 @@
-// ===== CV Pakistan builder — vanilla JS, no dependencies =====
+// ===== Free CV Builder — vanilla JS, no dependencies =====
 (function(){
   "use strict";
 
@@ -368,8 +368,13 @@
   // ---------- export / import / print ----------
   function bindActions(){
     document.getElementById("btnPrint").addEventListener("click", function(){
+      awaitingPrint = true;
       window.print();
+      // Most browsers block inside print() until the dialog closes; the rest fire
+      // "afterprint". Whichever comes first shows the panel, once.
+      setTimeout(showNextSteps, 400);
     });
+    window.addEventListener("afterprint", showNextSteps);
     document.getElementById("btnExport").addEventListener("click", function(){
       var blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
       var url = URL.createObjectURL(blob);
@@ -393,10 +398,54 @@
           save();
           location.reload();
         }catch(err){
-          alert("That file doesn't look like a valid CV Pakistan backup.");
+          alert("That file doesn't look like a valid backup from this builder.");
         }
       };
       reader.readAsText(file);
+    });
+  }
+
+  // ---------- post-download "next steps" panel ----------
+  var awaitingPrint = false;
+  var lastFocus = null;
+
+  function showNextSteps(){
+    if(!awaitingPrint) return;
+    awaitingPrint = false;
+    var panel = document.getElementById("nextSteps");
+    lastFocus = document.activeElement;
+    panel.hidden = false;
+    document.getElementById("nextStepsClose").focus();
+  }
+  function hideNextSteps(){
+    document.getElementById("nextSteps").hidden = true;
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function bindNextSteps(){
+    var panel = document.getElementById("nextSteps");
+    var preview = /[?&]preview=1(&|$)/.test(location.search);
+    if(preview) document.body.classList.add("preview-mode");
+
+    // Offers still pointing at "#" are placeholders: never shown to real visitors.
+    var live = 0;
+    Array.prototype.forEach.call(panel.querySelectorAll(".offer-card"), function(card){
+      var placeholder = card.getAttribute("href") === "#";
+      if(placeholder){
+        card.addEventListener("click", function(e){ e.preventDefault(); });
+        if(!preview){ card.hidden = true; return; }
+      }
+      live++;
+    });
+    if(!live) document.getElementById("offers").hidden = true;
+
+    document.getElementById("nextStepsClose").addEventListener("click", hideNextSteps);
+    document.getElementById("nextStepsDone").addEventListener("click", hideNextSteps);
+    document.getElementById("nextStepsBackup").addEventListener("click", function(){
+      document.getElementById("btnExport").click();
+    });
+    panel.addEventListener("click", function(e){ if(e.target === panel) hideNextSteps(); });
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape" && !panel.hidden) hideNextSteps();
     });
   }
 
@@ -408,6 +457,7 @@
     bindTplSwitcher();
     bindAddButtons();
     bindActions();
+    bindNextSteps();
     renderExpList();
     renderEduList();
     renderCertList();

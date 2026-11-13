@@ -24,6 +24,11 @@
 </nav>
 
 <div class="app-shell">
+  <!-- Ad rail (left). Placeholder only: fixed 160x600 so layout does not shift when real ad code is added. -->
+  <aside class="ad-rail ad-rail-l" aria-label="Advertisement">
+    <div class="ad-slot" id="ad-rail-left" data-ad-size="160x600"></div>
+  </aside>
+
   <!-- ========== FORM PANE ========== -->
   <div class="form-pane">
 
@@ -135,6 +140,71 @@
     <div id="printArea">
       <div class="page tpl-classic" id="resumePage"></div>
     </div>
+  </div>
+
+  <!-- Ad rail (right). Placeholder only, 160x600. -->
+  <aside class="ad-rail ad-rail-r" aria-label="Advertisement">
+    <div class="ad-slot" id="ad-rail-right" data-ad-size="160x600"></div>
+  </aside>
+</div>
+
+<!-- Bottom ad. Placeholder only: 728x90 on desktop, 320x50 on mobile. -->
+<div class="ad-bottom-wrap" aria-label="Advertisement">
+  <div class="ad-slot" id="ad-bottom" data-ad-size="728x90 / 320x50"></div>
+</div>
+
+<!-- ========== POST-DOWNLOAD "NEXT STEPS" PANEL (same tab, shown after the print dialog closes) ========== -->
+<div class="next-steps" id="nextSteps" hidden>
+  <div class="next-steps-card" role="dialog" aria-modal="true" aria-labelledby="nextStepsTitle">
+    <button class="next-steps-close" id="nextStepsClose" aria-label="Close">✕</button>
+    <h2 id="nextStepsTitle">Your CV is ready!</h2>
+    <p class="next-steps-lead">A few things that might help next:</p>
+
+    <div class="next-steps-free">
+      <button class="step-card" id="nextStepsBackup" type="button">
+        <b>💾 Save a backup file</b>
+        <span>Your CV lives only in this browser. Export a backup so you can edit it later or on another device.</span>
+      </button>
+      <a class="step-card" href="guides/ats-resume-tips.html">
+        <b>✅ Check it against the ATS tips</b>
+        <span>A two-minute read on the formatting mistakes that get CVs filtered out by software.</span>
+      </a>
+    </div>
+
+    <!-- Affiliate offers. A card with href="#" stays hidden on the live site
+         (visible only with ?preview=1) until a real link replaces it. -->
+    <div class="offers" id="offers">
+      <h3>Recommended tools</h3>
+      <div class="offers-grid">
+        <!-- TODO: real affiliate link after approval (Grammarly, via Impact) -->
+        <a class="offer-card" href="#" target="_blank" rel="sponsored noopener">
+          <b>Grammarly</b>
+          <span>Proofread your CV and cover letter for typos and awkward phrasing before you send them.</span>
+          <em>Check my writing →</em>
+        </a>
+        <!-- TODO: real affiliate link after approval (TopResume) -->
+        <a class="offer-card" href="#" target="_blank" rel="sponsored noopener">
+          <b>TopResume</b>
+          <span>Get your finished CV reviewed by a professional resume writer.</span>
+          <em>Get a review →</em>
+        </a>
+        <!-- TODO: real affiliate link after approval (Coursera, via Impact) -->
+        <a class="offer-card" href="#" target="_blank" rel="sponsored noopener">
+          <b>Coursera</b>
+          <span>Fill a skills gap with a course or certificate you can add to your CV.</span>
+          <em>Browse courses →</em>
+        </a>
+        <!-- TODO: real affiliate link after approval (Canva - own program, may not accept small sites) -->
+        <a class="offer-card" href="#" target="_blank" rel="sponsored noopener">
+          <b>Canva</b>
+          <span>Design a matching cover letter or LinkedIn banner.</span>
+          <em>Open Canva →</em>
+        </a>
+      </div>
+      <p class="offers-note">Some of these are affiliate links: if you sign up we may earn a commission, at no extra cost to you. It is how this builder stays free.</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" id="nextStepsDone" type="button">Back to my CV</button>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-/* ===== CV Pakistan — shared styles ===== */
+/* ===== Free CV Builder — shared styles ===== */
 :root{
   --ink:#1a2233;
   --ink-soft:#4a5468;
@@ -275,6 +275,7 @@ img{max-width:100%;display:block;}
 /* Print rules: only the resume page prints */
 @media print{
   @page{ size:A4; margin:0; }
+  .ad-rail,.ad-bottom-wrap,.next-steps{ display:none !important; }
   body *{ visibility:hidden; }
   #printArea, #printArea *{ visibility:visible; }
   #printArea{ position:absolute; top:0; left:0; margin:0; box-shadow:none; }
@@ -288,3 +289,101 @@ img{max-width:100%;display:block;}
   .page{width:100%;min-height:auto;transform:none !important;}
   .form-pane{border-right:none;border-top:1px solid var(--line);}
 }
+
+
+/* =======================================================
+   AD SLOTS (builder.html) — placeholders, no ad code yet.
+   Form (420px) + A4 preview (~842px) need ~1262px, so a 160px
+   rail only fits beside them from 1440px wide, and two from 1640px.
+   Rails are never allowed to squeeze the form or the preview.
+   ======================================================= */
+.ad-slot{margin:0 auto;}
+#ad-rail-left,#ad-rail-right{width:160px;height:600px;}
+#ad-bottom{width:320px;height:50px;}
+.ad-rail{display:none;background:var(--bg);padding:12px 8px;}
+.ad-rail .ad-slot{position:sticky;top:68px;}
+.ad-rail-l{border-right:1px solid var(--line);}
+.ad-rail-r{border-left:1px solid var(--line);}
+.ad-bottom-wrap{padding:14px 0;background:var(--bg);border-top:1px solid var(--line);}
+
+@media (min-width:768px){
+  #ad-bottom{width:728px;height:90px;}
+}
+@media (min-width:1440px) and (min-height:700px){
+  .app-shell{grid-template-columns:420px 1fr 176px;}
+  .ad-rail-r{display:block;}
+  .preview-pane{padding:28px 16px;}
+}
+@media (min-width:1640px) and (min-height:700px){
+  .app-shell{grid-template-columns:176px 420px 1fr 176px;}
+  .ad-rail-l{display:block;}
+  .preview-pane{padding:28px;}
+}
+/* ?preview=1 outlines the empty slots so their size and position can be checked */
+.preview-mode .ad-slot{
+  outline:1.5px dashed #b7bfd0;background:#eceff6;position:relative;
+}
+.preview-mode .ad-rail .ad-slot{position:sticky;}
+.preview-mode .ad-slot::after{
+  content:"Ad slot " attr(data-ad-size);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:.72rem;font-weight:700;color:#7d879b;padding:6px;
+}
+
+/* =======================================================
+   POST-DOWNLOAD "NEXT STEPS" PANEL (builder.html)
+   ======================================================= */
+.next-steps{
+  position:fixed;inset:0;z-index:100;background:rgba(20,30,50,.55);
+  display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:5vh 16px;
+}
+.next-steps[hidden]{display:none;}
+.next-steps-card{
+  position:relative;width:100%;max-width:620px;background:var(--paper);border-radius:14px;
+  box-shadow:0 30px 80px -20px rgba(20,30,50,.5);padding:28px 28px 22px;
+}
+.next-steps-card h2{margin:0 0 4px;font-size:1.5rem;}
+.next-steps-lead{margin:0 0 18px;color:var(--ink-soft);}
+.next-steps-close{
+  position:absolute;top:10px;right:10px;width:40px;height:40px;border:none;background:none;
+  font-size:1rem;color:var(--ink-soft);cursor:pointer;border-radius:8px;
+}
+.next-steps-close:hover{background:var(--bg);}
+.next-steps-free,.offers-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.step-card,.offer-card{
+  display:flex;flex-direction:column;gap:4px;text-align:left;font-family:inherit;font-size:.86rem;
+  padding:14px;border:1.5px solid var(--line);border-radius:var(--radius);background:#fff;
+  color:var(--ink-soft);cursor:pointer;line-height:1.4;
+}
+.step-card b,.offer-card b{color:var(--ink);font-size:.95rem;}
+.step-card:hover,.offer-card:hover{border-color:var(--brand);text-decoration:none;}
+.offer-card[hidden]{display:none;}
+.offer-card em{font-style:normal;font-weight:700;color:var(--brand);margin-top:auto;padding-top:6px;}
+.offers{margin-top:20px;}
+.offers h3{margin:0 0 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+.offers-note{font-size:.76rem;color:#7d879b;margin:10px 0 0;}
+#nextStepsDone{margin-top:18px;}
+@media (max-width:560px){
+  .next-steps-free,.offers-grid{grid-template-columns:1fr;}
+  .next-steps-card{padding:22px 18px 18px;}
+}
+
+/* =======================================================
+   ARTICLE PAGES (guides)
+   ======================================================= */
+.article{max-width:720px;}
+.article h1{font-size:2rem;line-height:1.2;margin:0 0 6px;}
+.article .byline{font-size:.8rem;color:#7d879b;margin:0 0 24px;}
+.article h2{font-size:1.3rem;margin:30px 0 8px;}
+.article h3{font-size:1.05rem;margin:20px 0 6px;}
+.article p{margin:0 0 12px;}
+.article ul,.article ol{margin:0 0 14px 20px;padding:0;line-height:1.7;}
+.article .keybox{background:var(--brand-soft);border-radius:var(--radius);padding:16px 20px;margin:0 0 22px;}
+.article .keybox p{margin:0 0 6px;font-weight:700;}
+.article .keybox ul{margin-bottom:0;}
+.article table{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:.92rem;background:var(--paper);}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+.article th{background:#fafbfd;}
+.article .table-wrap{overflow-x:auto;}
+.article .cta-band{margin-top:36px;}
+.article .related{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);}
+.article .related h2{margin-top:0;font-size:1.05rem;}
