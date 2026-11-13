@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Your Resume or CV — Free Online Builder, Real PDF Download</title>
+<meta name="description" content="Fill in your details, pick a template, and download a free, ATS-safe resume or CV as a real PDF — no signup, no paywall. Formats for US resumes, UK/EU CVs, and Gulf-style CVs.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/builder.html">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav app-nav">
+  <div class="container">
+    <a href="index.html" class="brand" style="text-decoration:none;"><span class="dot"></span>Free CV Builder</a>
+    <div class="app-actions">
+      <button id="btnImport" class="btn btn-ghost btn-sm">Import backup</button>
+      <input type="file" id="fileImport" accept=".json" style="display:none;">
+      <button id="btnExport" class="btn btn-ghost btn-sm">Export backup</button>
+      <button id="btnPrint" class="btn btn-primary btn-sm">⬇ Download PDF</button>
+    </div>
+  </div>
+</nav>
+
+<div class="app-shell">
+  <!-- ========== FORM PANE ========== -->
+  <div class="form-pane">
+
+    <div class="tpl-switcher" id="tplSwitcher">
+      <div class="tpl-chip" data-tpl="classic">Classic</div>
+      <div class="tpl-chip" data-tpl="modern">Modern</div>
+      <div class="tpl-chip" data-tpl="minimal">Minimal</div>
+      <div class="tpl-chip" data-tpl="gulf">Gulf CV</div>
+    </div>
+
+    <!-- Personal Info -->
+    <div class="accordion-section open" data-section="personal">
+      <div class="accordion-head"><span>👤 Personal Information</span><span class="arrow">▾</span></div>
+      <div class="accordion-body">
+        <div class="field-row">
+          <div class="field"><label>Full Name</label><input type="text" id="f-name" placeholder="Ayesha Khan"></div>
+          <div class="field"><label>Target Job Title <span class="opt">(shown under name)</span></label><input type="text" id="f-role" placeholder="Software Engineer"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="ayesha@email.com"></div>
+          <div class="field"><label>WhatsApp / Phone</label><input type="tel" id="f-phone" placeholder="+92 300 1234567"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>City</label><input type="text" id="f-city" placeholder="Lahore, Pakistan"></div>
+          <div class="field"><label>LinkedIn / Portfolio <span class="opt">(optional)</span></label><input type="url" id="f-link" placeholder="linkedin.com/in/ayesha"></div>
+        </div>
+        <div class="field" id="gulfFieldsWrap" style="display:none;">
+          <div class="field-row">
+            <div class="field"><label>Nationality</label><input type="text" id="f-nationality" placeholder="Pakistani"></div>
+            <div class="field"><label>Visa Status <span class="opt">(for Gulf roles)</span></label><input type="text" id="f-visa" placeholder="Visit visa / Open to sponsorship"></div>
+          </div>
+          <div class="field">
+            <label>Photo <span class="opt">(used only in Gulf / Modern templates)</span></label>
+            <div class="photo-drop" id="photoDrop">
+              <img id="photoPreview" style="display:none;">
+              <span id="photoLabel">Click to upload a passport-style photo</span>
+            </div>
+            <input type="file" id="f-photo" accept="image/*" style="display:none;">
+          </div>
+        </div>
+        <div class="field">
+          <label>Professional Summary <span class="opt">(2-3 lines)</span></label>
+          <textarea id="f-summary" placeholder="Results-driven software engineer with 3+ years building web applications..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="accordion-section" data-section="experience">
+      <div class="accordion-head"><span>💼 Work Experience</span><span class="arrow">▾</span></div>
+      <div class="accordion-body">
+        <div id="expList"></div>
+        <button class="btn btn-ghost btn-sm btn-block" id="addExp">+ Add work experience</button>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="accordion-section" data-section="education">
+      <div class="accordion-head"><span>🎓 Education</span><span class="arrow">▾</span></div>
+      <div class="accordion-body">
+        <div id="eduList"></div>
+        <button class="btn btn-ghost btn-sm btn-block" id="addEdu">+ Add education</button>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="accordion-section" data-section="skills">
+      <div class="accordion-head"><span>🛠 Skills</span><span class="arrow">▾</span></div>
+      <div class="accordion-body">
+        <div class="field">
+          <label>Skills <span class="opt">(comma separated)</span></label>
+          <textarea id="f-skills" placeholder="MS Excel, Project Management, Python, Communication"></textarea>
+        </div>
+        <div class="field">
+          <label>Languages <span class="opt">(comma separated)</span></label>
+          <input type="text" id="f-languages" placeholder="Urdu (Native), English (Fluent)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="accordion-section" data-section="certs">
+      <div class="accordion-head"><span>📜 Certifications</span><span class="arrow">▾</span></div>
+      <div class="accordion-body">
+        <div id="certList"></div>
+        <button class="btn btn-ghost btn-sm btn-block" id="addCert">+ Add certification</button>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="accordion-section" data-section="refs">
+      <div class="accordion-head"><span>🤝 References</span><span class="arrow">▾</span></div>
+      <div class="accordion-body">
+        <div class="toggle-row">
+          <span>Include "References available on request"</span>
+          <label class="switch"><input type="checkbox" id="f-refsToggle" checked><span class="slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <p class="helptext" style="margin-top:16px;">Your data is saved automatically in this browser only. Use <b>Export backup</b> before switching devices or clearing browser data.</p>
+  </div>
+
+  <!-- ========== PREVIEW PANE ========== -->
+  <div class="preview-pane">
+    <div class="zoom-controls">
+      <span>Live preview — A4</span>
+    </div>
+    <div id="printArea">
+      <div class="page tpl-classic" id="resumePage"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
