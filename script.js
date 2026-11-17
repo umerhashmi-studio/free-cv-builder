@@ -427,7 +427,7 @@
 
   function sec(key, title, inner){
     if(!inner) return "";
-    return '<section class="r-section r-'+key+'"><h2>'+title+'</h2><div class="r-body">'+inner+'</div></section>';
+    return '<section class="r-section rs-'+key+'"><h2>'+title+'</h2><div class="r-body">'+inner+'</div></section>';
   }
 
   function summaryHtml(){ return state.summary ? sec("summary","Summary",'<p class="r-summary">'+esc(state.summary)+'</p>') : ""; }

@@ -325,10 +325,10 @@ img{max-width:100%;display:block;}
 /* template: timeline */
 .tpl-timeline .r-header{border-bottom:2px solid var(--acc);padding-bottom:4mm;}
 .tpl-timeline .r-section h2{border:none;padding:0;}
-.tpl-timeline .r-experience .r-item,.tpl-timeline .r-education .r-item,.tpl-timeline .r-certs .r-item{
+.tpl-timeline .rs-experience .r-item,.tpl-timeline .rs-education .r-item,.tpl-timeline .rs-certs .r-item{
   position:relative;padding-left:16px;border-left:2px solid var(--acc-mid);margin-left:5px;padding-bottom:6px;margin-bottom:2px;
 }
-.tpl-timeline .r-experience .r-item::before,.tpl-timeline .r-education .r-item::before,.tpl-timeline .r-certs .r-item::before{
+.tpl-timeline .rs-experience .r-item::before,.tpl-timeline .rs-education .r-item::before,.tpl-timeline .rs-certs .r-item::before{
   content:"";position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--acc);
 }
 .tpl-timeline .r-item-date{color:var(--acc);font-weight:700;}
