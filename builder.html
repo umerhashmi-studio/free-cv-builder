@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/builder.html">
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="styles.css">
+<style id="pageSizeRule">@page{size:A4;margin:0;}</style>
 </head>
 <body>
 
@@ -32,11 +33,34 @@
   <!-- ========== FORM PANE ========== -->
   <div class="form-pane">
 
-    <div class="tpl-switcher" id="tplSwitcher">
-      <div class="tpl-chip" data-tpl="classic">Classic</div>
-      <div class="tpl-chip" data-tpl="modern">Modern</div>
-      <div class="tpl-chip" data-tpl="minimal">Minimal</div>
-      <div class="tpl-chip" data-tpl="gulf">Gulf CV</div>
+    <h1 class="app-title">Free Resume &amp; CV Builder</h1>
+
+    <!-- Design: template, colour, paper size -->
+    <div class="design-panel">
+      <div class="tpl-current">
+        <img id="tplCurrentThumb" src="assets/templates/classic.jpg" alt="Classic template" width="397" height="562">
+        <div>
+          <span class="design-label">Template</span>
+          <b id="tplCurrentName">Classic</b>
+          <span class="tpl-tags" id="tplCurrentTags"></span>
+          <button type="button" class="btn btn-ghost btn-sm" id="tplOpen">Change template</button>
+        </div>
+      </div>
+      <div class="design-row">
+        <span class="design-label">Colour</span>
+        <div class="swatches" id="swatches"></div>
+      </div>
+      <div class="design-row">
+        <label class="design-label" for="paperSize">Paper</label>
+        <select id="paperSize">
+          <option value="a4">A4 (UK, Europe, Gulf, Asia)</option>
+          <option value="letter">US Letter (US, Canada)</option>
+        </select>
+      </div>
+      <div class="design-row design-actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="btnSample">Fill with example</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnClear">Start blank</button>
+      </div>
     </div>
 
     <!-- Personal Info -->
@@ -44,33 +68,36 @@
       <div class="accordion-head"><span>👤 Personal Information</span><span class="arrow">▾</span></div>
       <div class="accordion-body">
         <div class="field-row">
-          <div class="field"><label>Full Name</label><input type="text" id="f-name" placeholder="Ayesha Khan"></div>
-          <div class="field"><label>Target Job Title <span class="opt">(shown under name)</span></label><input type="text" id="f-role" placeholder="Software Engineer"></div>
+          <div class="field"><label for="f-name">Full Name</label><input type="text" id="f-name" placeholder="Ayesha Khan"></div>
+          <div class="field"><label for="f-role">Target Job Title <span class="opt">(shown under name)</span></label><input type="text" id="f-role" placeholder="Software Engineer"></div>
         </div>
         <div class="field-row">
-          <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="ayesha@email.com"></div>
-          <div class="field"><label>WhatsApp / Phone</label><input type="tel" id="f-phone" placeholder="+92 300 1234567"></div>
+          <div class="field"><label for="f-email">Email</label><input type="email" id="f-email" placeholder="ayesha@email.com"></div>
+          <div class="field"><label for="f-phone">WhatsApp / Phone</label><input type="tel" id="f-phone" placeholder="+92 300 1234567"></div>
         </div>
         <div class="field-row">
-          <div class="field"><label>City</label><input type="text" id="f-city" placeholder="Lahore, Pakistan"></div>
-          <div class="field"><label>LinkedIn / Portfolio <span class="opt">(optional)</span></label><input type="url" id="f-link" placeholder="linkedin.com/in/ayesha"></div>
+          <div class="field"><label for="f-city">City</label><input type="text" id="f-city" placeholder="Lahore, Pakistan"></div>
+          <div class="field"><label for="f-link">LinkedIn / Portfolio <span class="opt">(optional)</span></label><input type="url" id="f-link" placeholder="linkedin.com/in/ayesha"></div>
         </div>
-        <div class="field" id="gulfFieldsWrap" style="display:none;">
+        <div class="field" id="gulfFieldsWrap">
           <div class="field-row">
-            <div class="field"><label>Nationality</label><input type="text" id="f-nationality" placeholder="Pakistani"></div>
-            <div class="field"><label>Visa Status <span class="opt">(for Gulf roles)</span></label><input type="text" id="f-visa" placeholder="Visit visa / Open to sponsorship"></div>
+            <div class="field"><label for="f-nationality">Nationality <span class="opt">(optional)</span></label><input type="text" id="f-nationality" placeholder="Pakistani"></div>
+            <div class="field"><label for="f-visa">Visa Status <span class="opt">(optional)</span></label><input type="text" id="f-visa" placeholder="Visit visa / Open to sponsorship"></div>
           </div>
+          <p class="helptext" id="personalNote" style="margin:-4px 0 10px;"></p>
           <div class="field">
-            <label>Photo <span class="opt">(used only in Gulf / Modern templates)</span></label>
-            <div class="photo-drop" id="photoDrop">
-              <img id="photoPreview" style="display:none;">
+            <label>Photo <span class="opt">(optional)</span></label>
+            <div class="photo-drop" id="photoDrop" role="button" tabindex="0">
+              <img id="photoPreview" style="display:none;" alt="Your photo">
               <span id="photoLabel">Click to upload a passport-style photo</span>
             </div>
             <input type="file" id="f-photo" accept="image/*" style="display:none;">
+            <p class="helptext" id="photoNote"></p>
+            <button type="button" class="btn btn-ghost btn-sm" id="photoRemove" hidden>Remove photo</button>
           </div>
         </div>
         <div class="field">
-          <label>Professional Summary <span class="opt">(2-3 lines)</span></label>
+          <label for="f-summary">Professional Summary <span class="opt">(2-3 lines)</span></label>
           <textarea id="f-summary" placeholder="Results-driven software engineer with 3+ years building web applications..."></textarea>
         </div>
       </div>
@@ -99,11 +126,11 @@
       <div class="accordion-head"><span>🛠 Skills</span><span class="arrow">▾</span></div>
       <div class="accordion-body">
         <div class="field">
-          <label>Skills <span class="opt">(comma separated)</span></label>
+          <label for="f-skills">Skills <span class="opt">(comma separated)</span></label>
           <textarea id="f-skills" placeholder="MS Excel, Project Management, Python, Communication"></textarea>
         </div>
         <div class="field">
-          <label>Languages <span class="opt">(comma separated)</span></label>
+          <label for="f-languages">Languages <span class="opt">(comma separated)</span></label>
           <input type="text" id="f-languages" placeholder="Urdu (Native), English (Fluent)">
         </div>
       </div>
@@ -135,7 +162,7 @@
   <!-- ========== PREVIEW PANE ========== -->
   <div class="preview-pane">
     <div class="zoom-controls">
-      <span>Live preview — A4</span>
+      <span id="previewLabel">Live preview — A4</span>
     </div>
     <div id="printArea">
       <div class="page tpl-classic" id="resumePage"></div>
@@ -151,6 +178,16 @@
 <!-- Bottom ad. Placeholder only: 728x90 on desktop, 320x50 on mobile. -->
 <div class="ad-bottom-wrap" aria-label="Advertisement">
   <div class="ad-slot" id="ad-bottom" data-ad-size="728x90 / 320x50"></div>
+</div>
+
+<!-- ========== TEMPLATE GALLERY ========== -->
+<div class="next-steps" id="tplModal" hidden>
+  <div class="next-steps-card tpl-modal-card" role="dialog" aria-modal="true" aria-labelledby="tplModalTitle">
+    <button class="next-steps-close" id="tplClose" aria-label="Close">✕</button>
+    <h2 id="tplModalTitle">Choose a template</h2>
+    <p class="next-steps-lead">Your details stay the same when you switch. "ATS-friendly" templates are single-column with no graphics in the text, which online application systems read most reliably.</p>
+    <div class="tpl-grid" id="tplGrid"></div>
+  </div>
 </div>
 
 <!-- ========== POST-DOWNLOAD "NEXT STEPS" PANEL (same tab, shown after the print dialog closes) ========== -->
